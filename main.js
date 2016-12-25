@@ -5,6 +5,7 @@ var MSG_BOX_ID = 'msg_box';
 
 var pageIds = ['login_page', 'main_page', 'calculator_page'];
 
+var calculator;
 // ----------------------- FUNCTIONS
 
 var getBody = function () {
@@ -86,16 +87,18 @@ var createCalculatorPage = function () {
 	var header = document.createElement('h1');
 	var add_button = document.createElement('button');
 	add_button.appendChild(document.createTextNode('Add more calculators'));
-	var image_div = document.createElement('div');
-	var calc1 = Calc();
+	var calc_div = document.createElement('div');
+	
+
+
 	
 	div3.appendChild(header);
-	div3.appendChild(image_div);
+	div3.appendChild(calc_div);
 	header.appendChild(add_button);
-	image_div.appendChild(calc1);
+	calc_div.appendChild(Calc());
 	
 	add_button.onclick = function() {
-		image_div.appendChild(Calc());
+		calc_div.appendChild(Calc());
 	}
 };
 
@@ -198,9 +201,39 @@ var hideMessageBox = function () {
 };
 
 var Calc = function() {
-	var calc_img = document.createElement('img');
-	calc_img.src = 'calculator.jpg';
-	return calc_img;
+	var calculator = document.createElement('form');
+	var input_str = document.createTextNode('calculator input: ');
+	var output_str = document.createTextNode('calculator output: ');
+	var input_div = document.createElement('div');
+	var output_div = document.createElement('div');
+	
+	var calc_input = document.createElement('input');
+	calc_input.type = 'text';
+	calc_input.name = 'calculate';
+	
+	var calc_output = document.createElement('input');
+	calc_input.type = 'text';
+	calc_input.name = 'calculate';
+	
+	var calc_button = document.createElement('input');
+	calc_button.type = 'submit';
+	calc_button.value = 'calculate';
+	calc_button.id = 'submit';
+	
+	calculator.appendChild(input_div);
+	calculator.appendChild(output_div);
+	calculator.appendChild(calc_button);
+	input_div.appendChild(input_str);
+	input_div.appendChild(calc_input);
+	output_div.appendChild(output_str);
+	output_div.appendChild(calc_output);
+	
+	calculator.onsubmit = function() {
+		calc_output.value = eval(calc_input.value);
+		return false;
+	}
+	
+	return calculator;
 }
 
 var main = function () {
