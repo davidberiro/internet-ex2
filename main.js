@@ -84,17 +84,20 @@ var createCalculatorPage = function () {
 	div3.className = 'page';
 	getBody().appendChild(div3);
 	
-	var header = document.createElement('h1');
+	var header1 = document.createElement('h1');
 	var add_button = document.createElement('button');
 	add_button.appendChild(document.createTextNode('Add more calculators'));
 	var calc_div = document.createElement('div');
+	var calc_explanation = document.createTextNode("in order to use the calculator, type an arithmetix expression into the calculator input field, and the result will be displayed in the calculator output field");
+	var header2 = document.createElement('h2');
 	
 
 
-	
-	div3.appendChild(header);
+	header2.appendChild(calc_explanation);
+	div3.appendChild(header1);
+	div3.appendChild(header2);
 	div3.appendChild(calc_div);
-	header.appendChild(add_button);
+	header1.appendChild(add_button);
 	calc_div.appendChild(Calc());
 	
 	add_button.onclick = function() {
@@ -208,7 +211,7 @@ var hideMessageBox = function () {
 
 var Calc = function() {
 	var calculator = document.createElement('form');
-	var input_str = document.createTextNode('arithmetic expression: ');
+	var input_str = document.createTextNode('calculator input: ');
 	var output_str = document.createTextNode('calculator output: ');
 	var input_div = document.createElement('div');
 	var output_div = document.createElement('div');
