@@ -1,9 +1,15 @@
 var LOGIN_USERNAME = 'admin';
 var LOGIN_PASSWORD = 'admin';
 
+var MSG_BOX_ID = 'msg_box';
+
 var pageIds = ['login_page', 'main_page', 'calculator_page'];
 
 // ----------------------- FUNCTIONS
+
+var getBody = function () {
+	return document.getElementsByTagName('body')[0];
+};
 
 var switchToPage = function (id) {
 	// Hide all pages
@@ -17,7 +23,7 @@ var createLoginPage = function () {
 	var div1 = document.createElement('div');
 	div1.id = 'login_page';
 	div1.className = 'login_page';
-	document.getElementsByTagName('body')[0].appendChild(div1);
+	getBody().appendChild(div1);
 
 	var form = document.createElement('form');
 	var user_str = document.createTextNode('Username: ');
@@ -60,11 +66,11 @@ var createLoginPage = function () {
 
 	form.onsubmit = function () {
 		if (username_input.value == LOGIN_USERNAME && password_input.value == LOGIN_PASSWORD) {
-			alert('Login successful!');
+			displayMessage('Login successful!', 4);
 			switchToPage('main_page');
 			return false;
 		}
-		alert('Bad credentials. Try again.');
+		displayMessage('Bad credentials. Try again.', 4);
 
 		// Disables redirection after submitting the form (which is the default behaviour of the browser)
 		return false;
@@ -75,7 +81,22 @@ var createCalculatorPage = function () {
 	var div3 = document.createElement('div');
 	div3.id = 'calculator_page';
 	div3.className = 'page';
-	document.getElementsByTagName('body')[0].appendChild(div3);
+	getBody().appendChild(div3);
+	
+	var header = document.createElement('h1');
+	var add_button = document.createElement('button');
+	add_button.appendChild(document.createTextNode('Add more calculators'));
+	var image_div = document.createElement('div');
+	var calc1 = Calc();
+	
+	div3.appendChild(header);
+	div3.appendChild(image_div);
+	header.appendChild(add_button);
+	image_div.appendChild(calc1);
+	
+	add_button.onclick = function() {
+		image_div.appendChild(Calc());
+	}
 };
 
 var createMainPage = function () {
@@ -83,12 +104,104 @@ var createMainPage = function () {
 	div2.id = 'main_page';
 	div2.className = 'page'
 
-	var header = document.createElement('h1');
-	header.appendChild(document.createTextNode('Main page!'));
-	div2.appendChild(header);
+	var header1 = document.createElement('h1');
+	header1.appendChild(document.createTextNode('David Benchimol'));
+	var header2 = document.createElement('h2');
+	header2.appendChild(document.createTextNode('$$$ Dope-ass baby! $$$'));
+	var marquee = document.createElement('marquee');
+	var image_container = document.createElement('div');
+	image_container.className = 'image-container';
+	var my_image = document.createElement('img');
+	my_image.src = 'pic.jpg';
+	my_image.alt = "baby david";
+	var img_p = document.createElement('p');
+	img_p.innerHTML = "dat overbite tho";
+	var bio_container = document.createElement('div');
+	bio_container.className = "bio";
+	var bio_p1 = document.createElement('p');
+	bio_p1.innerHTML = "In case it isn't blatantly clear, my name is <em>David Benchimol.</em>";
+	var bio_p2 = document.createElement('p');
+	bio_p2.innerHTML = "Here are a few <em>hip</em> things about myself";
+	var header3 = document.createElement('h3');
+	header3.innerHTML = "A little about me";
+	var bio_ul = document.createElement('ul');
+	var list_elem1 = document.createElement('li');
+	var list_elem2 = document.createElement('li');
+	var list_elem3 = document.createElement('li');
+	var link1 = document.createElement('a');
+	link1.href = "https://www.chess.com/";
+	link1.appendChild(document.createTextNode("over here"));
+	var link2 = document.createElement('a');
+	link2.href = "https://www.youtube.com/watch?v=vxEl7pwksWU";
+	link2.appendChild(document.createTextNode("Ella & Louis"));
+	var my_form = document.createElement('form');
+	my_form.appendChild(document.createTextNode("ID: "));
+	my_input = document.createElement('input');
+	my_input.type = 'text';
+	my_input.name = 'teudat zeehoot';
+	my_input.value = '332510908';
+	var calculator_button = document.createElement('button');
+	calculator_button.appendChild(document.createTextNode('CALCULATOR BUTTON'));
+	
+	my_form.appendChild(my_input);
+	
+	bio_ul.appendChild(list_elem1);
+	bio_ul.appendChild(list_elem2);
+	bio_ul.appendChild(list_elem3);
+	
+	list_elem1.appendChild(document.createTextNode('My favorite way to waste time on the internet is '));
+	list_elem1.appendChild(link1);
+	list_elem2.appendChild(document.createTextNode('Some dope music: '));
+	list_elem2.appendChild(link2);
+	list_elem3.appendChild(document.createTextNode('Ummmm... More things?'));
+	
+	marquee.appendChild(header2);
 
-	document.getElementsByTagName('body')[0].appendChild(div2);
+	bio_container.appendChild(bio_p1);
+	bio_container.appendChild(bio_p2);
+	bio_container.appendChild(header3);
+	bio_container.appendChild(bio_ul);
+	bio_container.appendChild(my_form);
+	bio_container.appendChild(calculator_button);
+	
+	div2.appendChild(header1);	
+	div2.appendChild(marquee);
+	div2.appendChild(image_container);
+	div2.appendChild(bio_container);
+	
+	image_container.appendChild(my_image);
+	image_container.appendChild(img_p);
+
+	getBody().appendChild(div2);
+	
+	calculator_button.onclick = function(){
+		switchToPage('calculator_page');
+	}
 };
+
+var displayMessage = function (message, secondsToShow) {
+	if (!(msgBox = document.getElementById(MSG_BOX_ID))) {
+		msgBox = document.createElement('div');
+		msgBox.id = MSG_BOX_ID;
+		getBody().insertBefore(msgBox, getBody().firstChild);
+	}
+	msgBox.style.display = 'block';
+	msgBox.innerHTML = '<p>' + message + '</p>';
+
+	setTimeout(hideMessageBox, secondsToShow * 1000);
+};
+
+var hideMessageBox = function () {
+	if (msgBox = document.getElementById(MSG_BOX_ID)) {
+		msgBox.style.display = 'none';
+	}
+};
+
+var Calc = function() {
+	var calc_img = document.createElement('img');
+	calc_img.src = 'calculator.jpg';
+	return calc_img;
+}
 
 var main = function () {
 	createLoginPage();

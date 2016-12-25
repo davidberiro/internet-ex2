@@ -1,10 +1,23 @@
 body {
+	font-size: 14px;
 	font-family: verdana;
+	
+	background: #ccfcda;
 }
 
+
 #main_page h1 {
-    color: blue;
-    font-size: 600%;
+	font-style: italic;
+	font-size: 600%;
+	font-style: underline;
+	color: blue;
+	margin-bottom:20px;
+	margin-top:20px;
+}
+
+#main_page h2 {
+	text-decoration: underline;
+	color: #eabb3a;
 }
 
 #main_page .image-container {
@@ -13,15 +26,23 @@ body {
 }
 
 #main_page .image-container img {
-	padding: 3px;
-	border: 1px solid #333333;
+	padding-right: 30px;
+	height: 300px;
+	width: 400px;
 }
 
 #main_page .image-container p {
-	font-size: 12px;
+	font-size: 10px;
 	font-style: italic;
 }
 
 #main_page .bio {
 	
+}
+
+#msg_box {
+	background-color: #ccff99;
+	border: 1px solid black;
+	padding: 5px;
+	margin: 5px;
 }
