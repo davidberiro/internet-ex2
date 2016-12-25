@@ -67,11 +67,11 @@ var createLoginPage = function () {
 
 	form.onsubmit = function () {
 		if (username_input.value == LOGIN_USERNAME && password_input.value == LOGIN_PASSWORD) {
-			displayMessage('Login successful!', 4);
+			displayMessage('Login successful!', 4, true);
 			switchToPage('main_page');
 			return false;
 		}
-		displayMessage('Bad credentials. Try again.', 4);
+		displayMessage('Bad credentials. Try again.', 4, false);
 
 		// Disables redirection after submitting the form (which is the default behaviour of the browser)
 		return false;
@@ -182,7 +182,7 @@ var createMainPage = function () {
 	}
 };
 
-var displayMessage = function (message, secondsToShow) {
+var displayMessage = function (message, secondsToShow, success) {
 	if (!(msgBox = document.getElementById(MSG_BOX_ID))) {
 		msgBox = document.createElement('div');
 		msgBox.id = MSG_BOX_ID;
@@ -190,6 +190,12 @@ var displayMessage = function (message, secondsToShow) {
 	}
 	msgBox.style.display = 'block';
 	msgBox.innerHTML = '<p>' + message + '</p>';
+	if (success) {
+		msgBox.style.backgroundColor = "green";
+	}
+	else {
+		msgBox.style.backgroundColor = "red";
+	}
 
 	setTimeout(hideMessageBox, secondsToShow * 1000);
 };
@@ -202,7 +208,7 @@ var hideMessageBox = function () {
 
 var Calc = function() {
 	var calculator = document.createElement('form');
-	var input_str = document.createTextNode('calculator input: ');
+	var input_str = document.createTextNode('arithmetic expression: ');
 	var output_str = document.createTextNode('calculator output: ');
 	var input_div = document.createElement('div');
 	var output_div = document.createElement('div');
